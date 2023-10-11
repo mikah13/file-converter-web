@@ -1,21 +1,43 @@
+'use client';
 import React from 'react';
 import { Button } from './ui/button';
 import Link from 'next/link';
 
+import { usePathname } from 'next/navigation';
 type Props = {};
 
 const Sidebar = (props: Props) => {
+  const pathname = usePathname();
+
+  const isPathname = (path: string) => {
+    return pathname.includes(path);
+  };
+
+  const getButtonVariant = (path: string) => {
+    return isPathname(path) ? 'secondary' : 'ghost';
+  };
   return (
-    <div className='w-[250px] relative flex flex-col justify-between'>
+    <div className='hidden w-[250px]  relative lg:flex flex-col justify-between'>
       <div className='space-y-4 py-4'>
         <div className='px-3 py-2'>
-          <h2 className='mb-2 px-4 text-lg font-semibold tracking-tight'>
-            Home
-          </h2>
-
+          <div className='w-full h-12 flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-center'>
+            <h2 className=' text-lg font-semibold tracking-tight'>iConvert</h2>
+          </div>
+          {pathname}
           <div className='space-y-1'>
-            <Button variant='secondary' className='w-full justify-start'>
-              Image Converter
+            <Button
+              variant={getButtonVariant('converter')}
+              className='w-full justify-start'
+            >
+              <Link href='/converter'>Image Converter</Link>
+            </Button>
+          </div>
+          <div className='space-y-1'>
+            <Button
+              variant={getButtonVariant('compressor')}
+              className='w-full justify-start'
+            >
+              <Link href='/compressor'>Image Compressor</Link>
             </Button>
           </div>
         </div>
@@ -23,7 +45,7 @@ const Sidebar = (props: Props) => {
 
       <div className='border-t text-sm px-1 py-2 text-center'>
         <span>
-          from{' '}
+          From{' '}
           <Link
             className='color-blue-200 hover:color_blue-100 underline'
             href='http://mike-hoang-dev.vercel.app/'

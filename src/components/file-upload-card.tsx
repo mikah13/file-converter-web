@@ -141,22 +141,28 @@ const FileUploadCard = ({
   };
 
   return (
-    <Card className='flex flex-row py-3 px-3 cursp items-center justify-between'>
-      <div className='flex space-x-2'>
-        <span>
-          <FileImage size={24} />
+    <Card className='flex flex-col xl:flex-row py-3 px-3 cursp xl:items-center xl:justify-between'>
+      <div className='flex flex-col xl:flex-row xl:space-x-2'>
+        <span className='flex flex-row xl:space-x-3'>
+          <span>
+            <FileImage size={24} />
+          </span>
+          <span> {formatFileName(file.name || '')}</span>
         </span>
-        <span>{formatFileName(file.name || '')}</span>
+
         <span>{formatBytes(file.size)}</span>
-        <Badge variant='outline' className={getStatusStyle()}>
-          {status === 'Converting' && (
-            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-          )}
-          {status}
-        </Badge>
+        <span>
+          {' '}
+          <Badge variant='outline' className={getStatusStyle()}>
+            {status === 'Converting' && (
+              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+            )}
+            {status}
+          </Badge>
+        </span>
       </div>
 
-      <div className='flex items-center space-x-2'>
+      <div className='flex items-center space-x-2 justify-end'>
         <FileType
           index={index}
           updateFileFormat={updateFileFormat}

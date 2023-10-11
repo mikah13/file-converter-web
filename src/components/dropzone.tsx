@@ -84,7 +84,7 @@ function Dropzone() {
         const form = new FormData();
         form.set('file', file);
         const res = await fetch(
-          `${API_ENDPOINT}/upload?format=${format}&uuid=${resId}`,
+          `${API_ENDPOINT}/convert?format=${format}&uuid=${resId}`,
           {
             method: 'POST',
             body: form,
@@ -117,7 +117,7 @@ function Dropzone() {
         })}
       >
         <div>
-          <input {...getInputProps()} />
+          <input {...getInputProps()} type='file' accept='image/*' />
           <p>
             Drag and drop images here, or click to select files. Maximum of{' '}
             {MAX_FILE_COUNT} files
