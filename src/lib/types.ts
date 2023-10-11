@@ -5,4 +5,5 @@ export type ConvertFile = {
   convertedBin?: string | null;
   status: string;
   format?: string;
+  quality: number;
 };

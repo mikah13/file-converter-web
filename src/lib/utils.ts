@@ -98,5 +98,3 @@ export function copyToClipboard(text: string) {
   document.execCommand('copy');
   document.body.removeChild(input);
 }
-
-

@@ -1,4 +1,4 @@
 import Dropzone from '@/components/dropzone';
 export default function Converter() {
-  return <Dropzone />;
+  return <Dropzone mode='compressor' />;
 }

@@ -5,14 +5,14 @@ type ImageFormats = {
 };
 
 export function useFormat() {
-  const [formats, setExtension] = useState<ImageFormats>();
+  const [formats, setFormats] = useState<ImageFormats>();
   useEffect(() => {
     const endpoint = `${
       process.env.BACKEND_API || 'http://127.0.0.1:8000'
     }/extensions`;
     fetch(endpoint)
       .then((res) => res.json())
-      .then((data) => setExtension(data.extensions));
+      .then((data) => setFormats(data.extensions));
   }, []);
   return { formats };
 }
@@ -24,7 +24,7 @@ export function useFileUpload() {
    * removeFile from the list using index
    * @param index
    */
-  const removeFile = (index: Number) => {
+  const removeFile = (index: number) => {
     setFiles(files.filter((file, i) => i !== index));
   };
 
@@ -41,7 +41,7 @@ export function useFileUpload() {
   /**
    * updateFileStatus
    */
-  const updateFileStatus = (index: Number, status: string) => {
+  const updateFileStatus = (index: number, status: string) => {
     setFiles(
       files.map((file, i) => {
         if (i === index) {
@@ -57,7 +57,7 @@ export function useFileUpload() {
    * @param index
    * @param format
    */
-  const updateFileFormat = (index: Number, format: string) => {
+  const updateFileFormat = (index: number, format: string) => {
     setFiles(
       files.map((file, i) => {
         if (i === index) {
@@ -68,7 +68,7 @@ export function useFileUpload() {
     );
   };
 
-  const updateConvertedBin = (index: Number, binary: string) => {
+  const updateConvertedBin = (index: number, binary: string) => {
     setFiles(
       files.map((file, i) => {
         if (i === index) {
@@ -79,12 +79,35 @@ export function useFileUpload() {
     );
   };
 
+  const updateQuality = (index: number, quality: number) => {
+    setFiles(
+      files.map((file, i) => {
+        if (i === index) {
+          file.quality = quality;
+        }
+        return file;
+      })
+    );
+  };
+
   const resetFiles = () => {
     setFiles([]);
   };
 
+  const getUpdateProps = () => {
+    return {
+      addFile,
+      removeFile,
+      updateFileStatus,
+      updateFileFormat,
+      updateConvertedBin,
+      updateQuality,
+    };
+  };
+
   return {
     files,
+    updateQuality,
     resetFiles,
     updateConvertedBin,
     addFile,

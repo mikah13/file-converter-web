@@ -10,13 +10,16 @@ import FileUploadCard from './file-upload-card';
 import { useFileUpload, useFormat } from '@/lib/hooks';
 import { downloadFromBin, getFileExtension, isConverting } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ClockClockwise } from '@phosphor-icons/react';
 
 // Register the plugin with FilePond
 
 const MAX_FILE_COUNT = 10;
 const API_ENDPOINT = `${process.env.BACKEND_API || 'http://127.0.0.1:8000'}`;
-function Dropzone() {
+function Dropzone({ mode = 'converter' }: { mode?: string }) {
   const { formats } = useFormat();
+  const [converted, setConverted] = useState(false);
+
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: MAX_FILE_COUNT, // Max number of files to be dropped
     // accept: 'image/*',
@@ -29,7 +32,6 @@ function Dropzone() {
         toast.error('Maximum number of files reached');
         return;
       }
-
       acceptedFiles
         .filter((e) => e.type.indexOf('image') !== -1)
         .map((e: FileWithPath) => ({
@@ -37,6 +39,7 @@ function Dropzone() {
           status: 'Uploaded',
           format: getFileExtension(e.name),
           convertedBin: null,
+          quality: 95,
         }))
         .map((e) => {
           addFile(e);
@@ -53,9 +56,6 @@ function Dropzone() {
     resetFiles,
   } = useFileUpload();
 
-  const [converted, setConverted] = useState(false);
-  const [uuid, setUuid] = useState(null);
-
   const reset = () => {
     resetFiles();
     setConverted(false);
@@ -70,12 +70,9 @@ function Dropzone() {
       return;
     }
 
-    const fetchId = await fetch(`${API_ENDPOINT}/uuid`);
-    const resId = await fetchId.json().then((data) => data.uuid);
-    setUuid(resId);
     const response = await Promise.all(
       files.map(async (upload, index) => {
-        const { file, status, format } = upload;
+        const { file, status, format, quality } = upload;
         if (status === 'Converted') {
           return;
         }
@@ -84,7 +81,7 @@ function Dropzone() {
         const form = new FormData();
         form.set('file', file);
         const res = await fetch(
-          `${API_ENDPOINT}/convert?format=${format}&uuid=${resId}`,
+          `${API_ENDPOINT}/convert?format=${format}&quality=${quality}`,
           {
             method: 'POST',
             body: form,
@@ -128,6 +125,8 @@ function Dropzone() {
       <ScrollArea className='h-[500px] rounded-md border p-4'>
         {files.map((upload: ConvertFile, index: number) => (
           <FileUploadCard
+            formats={formats}
+            mode={mode}
             fileUpload={upload}
             removeFile={removeFile}
             updateFileFormat={updateFileFormat}
@@ -148,7 +147,7 @@ function Dropzone() {
           </Button>
         ) : (
           <Button className='w-36' onClick={reset}>
-            Start again
+            <ClockClockwise size={24} className='mr-1' /> Start again
           </Button>
         )}
       </div>

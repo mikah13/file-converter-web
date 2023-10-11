@@ -1,11 +1,6 @@
 import { ConvertFile } from '@/lib/types';
 import React from 'react';
-import {
-  FileImage,
-  Trash,
-  Download,
-  DownloadSimple,
-} from '@phosphor-icons/react';
+import { FileImage, Trash, DownloadSimple } from '@phosphor-icons/react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { formatBytes, formatFileName, getFileExtension } from '@/lib/utils';
@@ -17,7 +12,6 @@ import {
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
 } from '@/components/ui/command';
 import {
   Popover,
@@ -26,8 +20,8 @@ import {
 } from '@/components/ui/popover';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
 import { downloadFromBin } from '../lib/utils';
+import { Slider } from '@/components/ui/slider';
 
 type ImageFormats = {
   [key: string]: string;
@@ -36,36 +30,30 @@ type ImageFormats = {
 type Props = {
   fileUpload: ConvertFile;
   removeFile: Function;
-  index: Number;
+  index: number;
   updateFileFormat: Function;
+  mode: string;
+  formats: ImageFormats | undefined;
 };
 
 function FileType({
   extension,
   index,
   updateFileFormat,
+  formats,
 }: {
   extension: string;
-  index: Number;
+  index: number;
   updateFileFormat: Function;
+  formats: ImageFormats | undefined;
 }) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState(extension || '');
-  const [options, setOptions] = React.useState<ImageFormats>();
-  const formats = options
-    ? Object.keys(options).map((e) => {
-        return { value: options[e], label: e };
+  const options = formats
+    ? Object.keys(formats).map((e) => {
+        return { value: formats[e], label: e };
       })
     : null;
-
-  useEffect(() => {
-    const endpoint = `${
-      process.env.BACKEND_API || 'http://127.0.0.1:8000'
-    }/extensions`;
-    fetch(endpoint)
-      .then((res) => res.json())
-      .then((data) => setOptions(data.extensions));
-  }, []);
 
   return (
     <div className='flex flex-row items-center space-x-2'>
@@ -79,8 +67,8 @@ function FileType({
             className='w-[100px] justify-between'
           >
             {value
-              ? formats &&
-                formats.find((option) => option.label === value)?.label
+              ? options &&
+                options.find((option) => option.label === value)?.label
               : 'Convert to'}
             <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
           </Button>
@@ -90,8 +78,8 @@ function FileType({
             <CommandInput placeholder='Search formats...' />
             <CommandEmpty>No formats found.</CommandEmpty>
             <CommandGroup>
-              {formats &&
-                formats.map((option) => (
+              {options &&
+                options.map((option) => (
                   <CommandItem
                     key={option.label}
                     onSelect={(currentValue) => {
@@ -116,14 +104,32 @@ function FileType({
     </div>
   );
 }
+const FileQuality = ({ quality }: { quality: number }) => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Popover open={open} onOpenChange={setOpen}>
+        <PopoverTrigger>
+          {' '}
+          <Button onClick={() => setOpen(true)}>Quality: {quality}</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <Slider defaultValue={[100]} max={100} step={1} />
+        </PopoverContent>
+      </Popover>
+    </>
+  );
+};
 
 const FileUploadCard = ({
   fileUpload,
   removeFile,
   updateFileFormat,
   index,
+  formats,
+  mode,
 }: Props) => {
-  const { file, status, format, convertedBin } = fileUpload;
+  const { file, status, format, convertedBin, quality } = fileUpload;
 
   const getStatusStyle = () => {
     switch (status) {
@@ -162,12 +168,16 @@ const FileUploadCard = ({
         </span>
       </div>
 
-      <div className='flex items-center space-x-2 justify-end'>
-        <FileType
-          index={index}
-          updateFileFormat={updateFileFormat}
-          extension={format || ' '}
-        />
+      <div className='flex items-center w-72 space-x-2 justify-end'>
+        {mode === 'converter' && (
+          <FileType
+            formats={formats}
+            index={index}
+            updateFileFormat={updateFileFormat}
+            extension={format || ' '}
+          />
+        )}
+        {mode === 'compressor' && <FileQuality quality={quality} />}
         <Button
           disabled={status !== 'Converted'}
           onClick={() => downloadFromBin(convertedBin, file.name, format)}

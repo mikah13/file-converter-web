@@ -20,10 +20,8 @@ const Sidebar = (props: Props) => {
     <div className='hidden w-[250px]  relative lg:flex flex-col justify-between'>
       <div className='space-y-4 py-4'>
         <div className='px-3 py-2'>
-          <div className='w-full mb-4 h-12 flex items-center bg-gradient-to-r from-purple-400 to-yellow-400 justify-center'>
-            <h2 className='text-black text-lg font-semibold tracking-tight'>
-              iConvert
-            </h2>
+          <div className='w-full mb-4 h-12 flex border-2 items-center justify-center'>
+            <h2 className='text-lg font-semibold tracking-tight'>iConvert</h2>
           </div>
           <div className='space-y-1'>
             <Button
