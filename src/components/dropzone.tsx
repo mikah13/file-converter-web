@@ -26,7 +26,7 @@ function Dropzone() {
 
   const [converted, setConverted] = useState(false);
   const [uuid, setUuid] = useState(null);
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     maxFiles: MAX_FILE_COUNT, // Max number of files to be dropped
     accept: {
       // Only images for now

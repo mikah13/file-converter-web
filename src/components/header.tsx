@@ -24,7 +24,11 @@ function Header({}: Props) {
         <MenubarMenu>
           <MenubarTrigger className='font-bold'>File</MenubarTrigger>
           <MenubarContent>
-            <MenubarItem>About Us</MenubarItem>
+            <MenubarItem
+              onClick={() => window.open('https://mike-hoang-dev.vercel.app/')}
+            >
+              About Us
+            </MenubarItem>
             <MenubarSeparator />
             <MenubarItem>
               Preferences... <MenubarShortcut>⌘,</MenubarShortcut>
