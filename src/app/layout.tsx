@@ -18,13 +18,13 @@ export const metadata: Metadata = {
   authors: [{ name: 'Mike Hoang' }],
   colorScheme: 'dark',
   creator: 'Mike Hoang',
-  openGraph: {
-    title: 'IConvert',
-    description: 'A free image converter. Your data is your data.',
-    siteName: 'IConvert',
-    locale: 'en_US',
-    type: 'website',
-  },
+  // openGraph: {
+  //   title: 'IConvert',
+  //   description: 'A free image converter. Your data is your data.',
+  //   siteName: 'IConvert',
+  //   locale: 'en_US',
+  //   type: 'website',
+  // },
 };
 
 export default function RootLayout({
