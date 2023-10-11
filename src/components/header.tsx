@@ -24,6 +24,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { copyToClipboard } from '@/lib/utils';
+import { toast } from 'sonner';
 
 function PrivacyPolicy({
   open,
@@ -135,7 +137,14 @@ function Header({}: Props) {
             <MenubarSub>
               <MenubarSubTrigger>Share</MenubarSubTrigger>
               <MenubarSubContent>
-                <MenubarItem>Copy link</MenubarItem>
+                <MenubarItem
+                  onClick={() => {
+                    copyToClipboard('https://iconvert.vercel.app/');
+                    toast.success('Copied to clipboard !');
+                  }}
+                >
+                  Copy link
+                </MenubarItem>
                 <MenubarItem
                   onClick={() =>
                     window.open(
@@ -145,7 +154,6 @@ function Header({}: Props) {
                 >
                   Twitter
                 </MenubarItem>
-                <MenubarItem>Notes</MenubarItem>
               </MenubarSubContent>
             </MenubarSub>
             <MenubarSeparator />
