@@ -79,10 +79,11 @@ function Dropzone() {
       return;
     }
 
-    const endpoint = `${
-      process.env.BACKEND_API || 'http://127.0.0.1:8000'
-    }/upload`;
-
+    const endpoint = `${process.env.BACKEND_API || 'http://127.0.0.1:8000'}`;
+    const fetchId = await fetch(`${endpoint}/uuid`);
+    const uuid = await fetchId.json().then((data) => data.uuid);
+    console.log(uuid);
+    return;
     const response = await Promise.all(
       files.map(async (upload, index) => {
         const { file, status, format } = upload;
@@ -93,7 +94,7 @@ function Dropzone() {
 
         const form = new FormData();
         form.set('file', file);
-        const res = await fetch(`${endpoint}?format=${format}`, {
+        const res = await fetch(`${endpoint}/upload?format=${format}`, {
           method: 'POST',
           body: form,
         });
@@ -115,11 +116,11 @@ function Dropzone() {
   return (
     <div className='flex flex-col space-y-4'>
       <Button
-        // disabled={converted}
+        disabled={converted}
         variant='outline'
         {...getRootProps({
           className: `dropzone border-dashed border-4 w-full h-24 ${
-            converted && 'cursor-not-allowed'
+            converted ? 'cursor-not-allowed' : 'cursor-pointer'
           }`,
         })}
       >
