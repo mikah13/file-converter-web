@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from './ui/button';
 import Link from 'next/link';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, redirect } from 'next/navigation';
 type Props = {};
 
 const Sidebar = (props: Props) => {
@@ -20,23 +20,27 @@ const Sidebar = (props: Props) => {
     <div className='hidden w-[250px]  relative lg:flex flex-col justify-between'>
       <div className='space-y-4 py-4'>
         <div className='px-3 py-2'>
-          <div className='w-full mb-4 h-12 flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-center'>
-            <h2 className=' text-lg font-semibold tracking-tight'>iConvert</h2>
+          <div className='w-full mb-4 h-12 flex items-center bg-gradient-to-r from-purple-400 to-yellow-400 justify-center'>
+            <h2 className='text-black text-lg font-semibold tracking-tight'>
+              iConvert
+            </h2>
           </div>
           <div className='space-y-1'>
             <Button
               variant={getButtonVariant('converter')}
+              onClick={() => redirect('/converter')}
               className='w-full justify-start rounded-none'
             >
-              <Link href='/converter'>Image Converter</Link>
+              Image Converter
             </Button>
           </div>
           <div className='space-y-1'>
             <Button
               variant={getButtonVariant('compressor')}
+              onClick={() => redirect('/compressor')}
               className='w-full justify-start rounded-none'
             >
-              <Link href='/compressor'>Image Compressor</Link>
+              Image Compressor
             </Button>
           </div>
         </div>
