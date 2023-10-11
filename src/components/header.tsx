@@ -44,7 +44,7 @@ function PrivacyPolicy({
               <strong>Last updated: October 11, 2023</strong>
             </p>
 
-            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+            <h2 className='scroll-m-20 pb-1 mt-3 text-xl font-semibold tracking-tight'>
               Introduction
             </h2>
             <p>
@@ -54,7 +54,7 @@ function PrivacyPolicy({
               safeguard your data.
             </p>
 
-            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+            <h2 className='scroll-m-20  pb-1 mt-3 text-xl font-semibold tracking-tight'>
               Data Collection
             </h2>
             <ul>
@@ -71,7 +71,7 @@ function PrivacyPolicy({
               </li>
             </ul>
 
-            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+            <h2 className='scroll-m-20  pb-1 mt-3 text-xl font-semibold tracking-tight'>
               Use of Information
             </h2>
             <p>We only use the information collected as described above to:</p>
@@ -81,7 +81,7 @@ function PrivacyPolicy({
               <li>Comply with legal requirements and protect our rights.</li>
             </ul>
 
-            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+            <h2 className='scroll-m-20  pb-1 mt-3 text-xl font-semibold tracking-tight'>
               Data Sharing
             </h2>
             <p>
@@ -90,7 +90,7 @@ function PrivacyPolicy({
               accessible to anyone except you.
             </p>
 
-            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+            <h2 className='scroll-m-20  pb-1 mt-3 text-xl font-semibold tracking-tight'>
               Security
             </h2>
             <p>
