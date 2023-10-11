@@ -38,13 +38,13 @@ function PrivacyPolicy({
         <DialogHeader>
           <DialogTitle>Privacy policy</DialogTitle>
           <DialogDescription>
-            <h1>Privacy Policy for IConvert</h1>
-
             <p>
               <strong>Last updated: October 11, 2023</strong>
             </p>
 
-            <h2>Introduction</h2>
+            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+              Introduction
+            </h2>
             <p>
               Welcome to IConvert. At IConvert, we are committed to protecting
               your privacy and ensuring the security of your personal
@@ -52,7 +52,9 @@ function PrivacyPolicy({
               safeguard your data.
             </p>
 
-            <h2>Data Collection</h2>
+            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+              Data Collection
+            </h2>
             <ul>
               <li>
                 <strong>User-Uploaded Data</strong>: IConvert allows users to
@@ -61,16 +63,15 @@ function PrivacyPolicy({
                 do not keep or access the uploaded files.
               </li>
               <li>
-                <strong>Log Data</strong>: Like most websites, we collect and
-                store log data. This information may include details such as
-                your IP address, browser type, operating system, and the date
-                and time of your visit. However, we do not use cookies or any
+                <strong>Log Data</strong> We do not use data cookies or any
                 other tracking technologies to collect personally identifiable
                 information.
               </li>
             </ul>
 
-            <h2>Use of Information</h2>
+            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+              Use of Information
+            </h2>
             <p>We only use the information collected as described above to:</p>
             <ul>
               <li>Ensure the proper functioning and security of IConvert.</li>
@@ -78,24 +79,22 @@ function PrivacyPolicy({
               <li>Comply with legal requirements and protect our rights.</li>
             </ul>
 
-            <h2>Data Sharing</h2>
+            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+              Data Sharing
+            </h2>
             <p>
               We do not share or disclose any data or personal information
               uploaded by users to third parties. Your uploaded files are not
               accessible to anyone except you.
             </p>
 
-            <h2>Security</h2>
+            <h2 className='scroll-m-20 border-b text-black pb-2 mt-2 text-xl font-semibold tracking-tight'>
+              Security
+            </h2>
             <p>
               We take data security seriously and implement appropriate
               technical and organizational measures to protect your data from
               unauthorized access, alteration, disclosure, or destruction.
-            </p>
-
-            <h2>Changes to This Privacy Policy</h2>
-            <p>
-              We may update our Privacy Policy from time to time. Any changes
-              will be posted on this page with the revised date.
             </p>
 
             <p>
@@ -132,6 +131,24 @@ function Header({}: Props) {
               Preferences... <MenubarShortcut>⌘,</MenubarShortcut>
             </MenubarItem>
             <MenubarSeparator /> */}
+            <MenubarSeparator />
+            <MenubarSub>
+              <MenubarSubTrigger>Share</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarItem>Copy link</MenubarItem>
+                <MenubarItem
+                  onClick={() =>
+                    window.open(
+                      'https://twitter.com/intent/tweet?text=Check%20out%20IConvert%20-%20The%20Freedom%20to%20Convert%2C%20Without%20the%20Cost!&url=https%3A%2F%2Ficonvert.vercel.app%2F'
+                    )
+                  }
+                >
+                  Twitter
+                </MenubarItem>
+                <MenubarItem>Notes</MenubarItem>
+              </MenubarSubContent>
+            </MenubarSub>
+            <MenubarSeparator />
 
             <MenubarShortcut />
             <MenubarItem>
