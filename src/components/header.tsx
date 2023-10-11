@@ -48,7 +48,7 @@ function PrivacyPolicy({
               Introduction
             </h2>
             <p>
-              Welcome to IConvert. At IConvert, we are committed to protecting
+              Welcome to iConvert. At iConvert, we are committed to protecting
               your privacy and ensuring the security of your personal
               information. This Privacy Policy explains how we collect, use, and
               safeguard your data.
@@ -59,7 +59,7 @@ function PrivacyPolicy({
             </h2>
             <ul>
               <li>
-                <strong>User-Uploaded Data</strong>: IConvert allows users to
+                <strong>User-Uploaded Data</strong>: iConvert allows users to
                 upload files for conversion. We do not store or retain any data
                 uploaded by users. After the conversion process is complete, we
                 do not keep or access the uploaded files.
@@ -76,7 +76,7 @@ function PrivacyPolicy({
             </h2>
             <p>We only use the information collected as described above to:</p>
             <ul>
-              <li>Ensure the proper functioning and security of IConvert.</li>
+              <li>Ensure the proper functioning and security of iConvert.</li>
               <li>Monitor and analyze application usage and performance.</li>
               <li>Comply with legal requirements and protect our rights.</li>
             </ul>
@@ -100,7 +100,7 @@ function PrivacyPolicy({
             </p>
 
             <p>
-              By using IConvert you agree to the practices described in this
+              By using iConvert you agree to the practices described in this
               Privacy Policy.
             </p>
           </DialogDescription>
@@ -139,7 +139,7 @@ function Header({}: Props) {
               <MenubarSubContent>
                 <MenubarItem
                   onClick={() => {
-                    copyToClipboard('https://iconvert.vercel.app/');
+                    copyToClipboard('https://iConvert.vercel.app/');
                     toast.success('Copied to clipboard !');
                   }}
                 >
@@ -148,7 +148,7 @@ function Header({}: Props) {
                 <MenubarItem
                   onClick={() =>
                     window.open(
-                      'https://twitter.com/intent/tweet?text=Check%20out%20IConvert%20-%20The%20Freedom%20to%20Convert%2C%20Without%20the%20Cost!&url=https%3A%2F%2Ficonvert.vercel.app%2F'
+                      'https://twitter.com/intent/tweet?text=Check%20out%20iConvert%20-%20The%20Freedom%20to%20Convert%2C%20Without%20the%20Cost!&url=https%3A%2F%2FiConvert.vercel.app%2F'
                     )
                   }
                 >

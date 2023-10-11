@@ -7,21 +7,21 @@ import { Toaster, toast } from 'sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'IConvert',
+  title: 'iConvert',
   icons: {
     icon: '/favicon.ico',
   },
   description: 'A free image converter. Your data is your data.',
-  applicationName: 'IConvert',
+  applicationName: 'iConvert',
   referrer: 'origin-when-cross-origin',
   keywords: ['Next.js', 'Image Conversion', 'Free', 'TypeScript'],
   authors: [{ name: 'Mike Hoang' }],
   colorScheme: 'dark',
   creator: 'Mike Hoang',
   // openGraph: {
-  //   title: 'IConvert',
+  //   title: 'iConvert',
   //   description: 'A free image converter. Your data is your data.',
-  //   siteName: 'IConvert',
+  //   siteName: 'iConvert',
   //   locale: 'en_US',
   //   type: 'website',
   // },
