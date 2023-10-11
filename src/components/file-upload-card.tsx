@@ -34,6 +34,7 @@ type Props = {
   updateFileFormat: Function;
   mode: string;
   formats: ImageFormats | undefined;
+  updateFileQuality: Function;
 };
 
 function FileType({
@@ -104,7 +105,15 @@ function FileType({
     </div>
   );
 }
-const FileQuality = ({ quality }: { quality: number }) => {
+const FileQuality = ({
+  quality,
+  updateFileQuality,
+  index,
+}: {
+  quality: number;
+  index: number;
+  updateFileQuality: Function;
+}) => {
   const [open, setOpen] = React.useState(false);
   return (
     <>
@@ -114,7 +123,12 @@ const FileQuality = ({ quality }: { quality: number }) => {
           <Button onClick={() => setOpen(true)}>Quality: {quality}</Button>
         </PopoverTrigger>
         <PopoverContent>
-          <Slider defaultValue={[100]} max={100} step={1} />
+          <Slider
+            onValueChange={(e) => updateFileQuality(index, e)}
+            defaultValue={[quality]}
+            max={100}
+            step={1}
+          />
         </PopoverContent>
       </Popover>
     </>
@@ -125,6 +139,7 @@ const FileUploadCard = ({
   fileUpload,
   removeFile,
   updateFileFormat,
+  updateFileQuality,
   index,
   formats,
   mode,
@@ -133,9 +148,9 @@ const FileUploadCard = ({
 
   const getStatusStyle = () => {
     switch (status) {
-      case 'Converted':
+      case 'Completed':
         return 'bg-green-200 text-green-800';
-      case 'Converting':
+      case 'Processing':
         return 'bg-yellow-200 text-yellow-800';
       case 'Uploaded':
         return 'bg-blue-200 text-blue-800';
@@ -160,7 +175,7 @@ const FileUploadCard = ({
         <span>
           {' '}
           <Badge variant='outline' className={getStatusStyle()}>
-            {status === 'Converting' && (
+            {status === 'Processing' && (
               <Loader2 className='mr-2 h-4 w-4 animate-spin' />
             )}
             {status}
@@ -177,9 +192,15 @@ const FileUploadCard = ({
             extension={format || ' '}
           />
         )}
-        {mode === 'compressor' && <FileQuality quality={quality} />}
+        {mode === 'compressor' && (
+          <FileQuality
+            index={index}
+            updateFileQuality={updateFileQuality}
+            quality={quality}
+          />
+        )}
         <Button
-          disabled={status !== 'Converted'}
+          disabled={status !== 'Completed'}
           onClick={() => downloadFromBin(convertedBin, file.name, format)}
           className='border-2'
           variant='outline'

@@ -8,7 +8,7 @@ import { Toaster, toast } from 'sonner';
 import { ConvertFile } from '@/lib/types';
 import FileUploadCard from './file-upload-card';
 import { useFileUpload, useFormat } from '@/lib/hooks';
-import { downloadFromBin, getFileExtension, isConverting } from '@/lib/utils';
+import { downloadFromBin, getFileExtension, isProcessing } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ClockClockwise } from '@phosphor-icons/react';
 
@@ -54,6 +54,7 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
     updateFileStatus,
     updateFileFormat,
     resetFiles,
+    getFileUploadProps,
   } = useFileUpload();
 
   const reset = () => {
@@ -73,10 +74,10 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
     const response = await Promise.all(
       files.map(async (upload, index) => {
         const { file, status, format, quality } = upload;
-        if (status === 'Converted') {
+        if (status === 'Completed') {
           return;
         }
-        updateFileStatus(index, 'Converting');
+        updateFileStatus(index, 'Processing');
 
         const form = new FormData();
         form.set('file', file);
@@ -91,7 +92,7 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
         if (res.ok) {
           const blob = await res.blob();
           const blobUrl = URL.createObjectURL(blob);
-          updateFileStatus(index, 'Converted');
+          updateFileStatus(index, 'Completed');
           updateConvertedBin(index, blobUrl);
         } else {
           updateFileStatus(index, 'Error');
@@ -128,8 +129,7 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
             formats={formats}
             mode={mode}
             fileUpload={upload}
-            removeFile={removeFile}
-            updateFileFormat={updateFileFormat}
+            {...getFileUploadProps()}
             key={index}
             index={index}
           />
@@ -140,10 +140,11 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
         {!converted ? (
           <Button
             className='w-36'
-            disabled={isConverting(files)}
+            disabled={isProcessing(files)}
             onClick={convertAll}
           >
-            Convert all
+            {mode === 'converter' && 'Convert all'}
+            {mode === 'compressor' && 'Compress all'}
           </Button>
         ) : (
           <Button className='w-36' onClick={reset}>

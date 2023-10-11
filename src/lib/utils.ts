@@ -86,8 +86,8 @@ export function downloadFromBin(
  * @param files
  * @returns
  */
-export function isConverting(files: ConvertFile[]) {
-  return files.filter((file) => file.status === 'Converting').length > 0;
+export function isProcessing(files: ConvertFile[]) {
+  return files.filter((file) => file.status === 'Processing').length > 0;
 }
 
 export function copyToClipboard(text: string) {

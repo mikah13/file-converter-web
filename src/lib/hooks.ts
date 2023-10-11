@@ -79,7 +79,7 @@ export function useFileUpload() {
     );
   };
 
-  const updateQuality = (index: number, quality: number) => {
+  const updateFileQuality = (index: number, quality: number) => {
     setFiles(
       files.map((file, i) => {
         if (i === index) {
@@ -101,13 +101,18 @@ export function useFileUpload() {
       updateFileStatus,
       updateFileFormat,
       updateConvertedBin,
-      updateQuality,
+      updateFileQuality,
     };
+  };
+
+  const getFileUploadProps = () => {
+    return { removeFile, updateFileFormat, updateFileQuality };
   };
 
   return {
     files,
-    updateQuality,
+    getFileUploadProps,
+    updateFileQuality,
     resetFiles,
     updateConvertedBin,
     addFile,
