@@ -3,12 +3,12 @@ import React from 'react';
 import { Button } from './ui/button';
 import Link from 'next/link';
 
-import { usePathname, redirect } from 'next/navigation';
+import { usePathname, redirect, useRouter } from 'next/navigation';
 type Props = {};
 
 const Sidebar = (props: Props) => {
   const pathname = usePathname();
-
+  const router = useRouter();
   const isPathname = (path: string) => {
     return pathname.includes(path);
   };
@@ -28,7 +28,7 @@ const Sidebar = (props: Props) => {
           <div className='space-y-1'>
             <Button
               variant={getButtonVariant('converter')}
-              onClick={() => redirect('/converter')}
+              onClick={() => router.push('/converter')}
               className='w-full justify-start rounded-none'
             >
               Image Converter
@@ -37,7 +37,7 @@ const Sidebar = (props: Props) => {
           <div className='space-y-1'>
             <Button
               variant={getButtonVariant('compressor')}
-              onClick={() => redirect('/compressor')}
+              onClick={() => router.push('/compressor')}
               className='w-full justify-start rounded-none'
             >
               Image Compressor
