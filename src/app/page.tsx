@@ -1,7 +1,5 @@
 import { ModeToggle } from '@/components/mode-toggle';
-import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import Dropzone from '@/components/dropzone';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';

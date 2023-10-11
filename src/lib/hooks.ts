@@ -1,11 +1,24 @@
 import { useState, useEffect } from 'react';
 import { ConvertFile } from '@/lib/types';
-
-type Props = {
-  currentFiles?: ConvertFile[] | null;
+type ImageFormats = {
+  [key: string]: string;
 };
-export function useFileUpload({ currentFiles }: Props) {
-  const [files, setFiles] = useState<ConvertFile[]>(currentFiles || []);
+
+export function useFormat() {
+  const [formats, setExtension] = useState<ImageFormats>();
+  useEffect(() => {
+    const endpoint = `${
+      process.env.BACKEND_API || 'http://127.0.0.1:8000'
+    }/extensions`;
+    fetch(endpoint)
+      .then((res) => res.json())
+      .then((data) => setExtension(data.extensions));
+  }, []);
+  return { formats };
+}
+
+export function useFileUpload() {
+  const [files, setFiles] = useState<ConvertFile[]>([]);
 
   /**
    * removeFile from the list using index
@@ -69,6 +82,7 @@ export function useFileUpload({ currentFiles }: Props) {
   const resetFiles = () => {
     setFiles([]);
   };
+
   return {
     files,
     resetFiles,

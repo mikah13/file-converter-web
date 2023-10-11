@@ -7,31 +7,19 @@ import { Button } from './ui/button';
 import { Toaster, toast } from 'sonner';
 import { ConvertFile } from '@/lib/types';
 import FileUploadCard from './file-upload-card';
-import { useFileUpload } from '@/lib/hooks';
+import { useFileUpload, useFormat } from '@/lib/hooks';
 import { downloadFromBin, getFileExtension, isConverting } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
+
+// Register the plugin with FilePond
 
 const MAX_FILE_COUNT = 10;
 const API_ENDPOINT = `${process.env.BACKEND_API || 'http://127.0.0.1:8000'}`;
 function Dropzone() {
-  const {
-    files,
-    updateConvertedBin,
-    addFile,
-    removeFile,
-    updateFileStatus,
-    updateFileFormat,
-    resetFiles,
-  } = useFileUpload({});
-
-  const [converted, setConverted] = useState(false);
-  const [uuid, setUuid] = useState(null);
+  const { formats } = useFormat();
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: MAX_FILE_COUNT, // Max number of files to be dropped
-    accept: {
-      // Only images for now
-      'image/*': [],
-    },
+    // accept: 'image/*',
     onDrop: (acceptedFiles) => {
       if (converted) {
         toast.message('Please press start again for new conversion');
@@ -43,6 +31,7 @@ function Dropzone() {
       }
 
       acceptedFiles
+        .filter((e) => e.type.indexOf('image') !== -1)
         .map((e: FileWithPath) => ({
           file: e,
           status: 'Uploaded',
@@ -50,11 +39,22 @@ function Dropzone() {
           convertedBin: null,
         }))
         .map((e) => {
-          console.log(e);
           addFile(e);
         });
     },
   });
+  const {
+    files,
+    updateConvertedBin,
+    addFile,
+    removeFile,
+    updateFileStatus,
+    updateFileFormat,
+    resetFiles,
+  } = useFileUpload();
+
+  const [converted, setConverted] = useState(false);
+  const [uuid, setUuid] = useState(null);
 
   const reset = () => {
     resetFiles();
@@ -134,18 +134,10 @@ function Dropzone() {
             key={index}
             index={index}
           />
-        ))}{' '}
+        ))}
       </ScrollArea>
 
       <div className='flex flex-row justify-end space-x-2'>
-        {/* <Button
-          disabled={files.filter((e) => e.status === 'Converted').length === 0}
-          variant='outline'
-          className='w-36'
-          onClick={downloadAll}
-        >
-          Download all
-        </Button> */}
         {!converted ? (
           <Button
             className='w-36'

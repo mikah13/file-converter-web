@@ -146,7 +146,7 @@ const FileUploadCard = ({
         <span>
           <FileImage size={24} />
         </span>
-        <span>{formatFileName(file.path || '')}</span>
+        <span>{formatFileName(file.name || '')}</span>
         <span>{formatBytes(file.size)}</span>
         <Badge variant='outline' className={getStatusStyle()}>
           {status === 'Converting' && (

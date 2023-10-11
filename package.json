@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --debug",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch"
@@ -42,6 +42,8 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
+    "filepond": "^4.30.4",
+    "filepond-plugin-file-validate-type": "^1.2.8",
     "lucide-react": "^0.284.0",
     "next": "13.5.4",
     "next-themes": "^0.2.1",
@@ -49,6 +51,7 @@
     "react-day-picker": "^8.8.2",
     "react-dom": "^18",
     "react-dropzone": "^14.2.3",
+    "react-filepond": "^7.1.2",
     "react-hook-form": "^7.47.0",
     "react-wrap-balancer": "^1.1.0",
     "sonner": "^1.0.3",
