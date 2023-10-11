@@ -106,7 +106,7 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
   return (
     <div className='flex flex-col space-y-4'>
       <Button
-        disabled={converted}
+        disabled={converted || isProcessing(files)}
         variant='outline'
         {...getRootProps({
           className: `dropzone border-dashed border-4 w-full h-24 ${

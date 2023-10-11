@@ -120,7 +120,7 @@ const FileQuality = ({
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger>
           {' '}
-          <Button onClick={() => setOpen(true)}>Quality: {quality}</Button>
+          <Button onClick={() => setOpen(true)}>Quality: {quality}%</Button>
         </PopoverTrigger>
         <PopoverContent>
           <Slider
