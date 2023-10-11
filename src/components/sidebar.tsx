@@ -20,14 +20,13 @@ const Sidebar = (props: Props) => {
     <div className='hidden w-[250px]  relative lg:flex flex-col justify-between'>
       <div className='space-y-4 py-4'>
         <div className='px-3 py-2'>
-          <div className='w-full h-12 flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-center'>
+          <div className='w-full mb-4 h-12 flex items-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 justify-center'>
             <h2 className=' text-lg font-semibold tracking-tight'>iConvert</h2>
           </div>
-          {pathname}
           <div className='space-y-1'>
             <Button
               variant={getButtonVariant('converter')}
-              className='w-full justify-start'
+              className='w-full justify-start rounded-none'
             >
               <Link href='/converter'>Image Converter</Link>
             </Button>
@@ -35,7 +34,7 @@ const Sidebar = (props: Props) => {
           <div className='space-y-1'>
             <Button
               variant={getButtonVariant('compressor')}
-              className='w-full justify-start'
+              className='w-full justify-start rounded-none'
             >
               <Link href='/compressor'>Image Compressor</Link>
             </Button>

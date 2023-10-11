@@ -3,7 +3,11 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Toaster, toast } from 'sonner';
-
+import { ModeToggle } from '@/components/mode-toggle';
+import { Card } from '@/components/ui/card';
+import Dropzone from '@/components/dropzone';
+import Header from '@/components/header';
+import Sidebar from '@/components/sidebar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -42,7 +46,26 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className='relative flex lg:max-h-screen flex-col'>
-            {children}
+            <main className='flex h-screen p-2 '>
+              <Card className='flex w-full h-full flex-col relative'>
+                <div className='w-full flex justify-between'>
+                  <Header />
+                  <div>
+                    <ModeToggle />
+                  </div>
+                </div>
+
+                <div className='flex flex-row h-full w-full border-t'>
+                  <Sidebar />
+
+                  {/* Main App */}
+                  <div className='border-l h-full w-full px-12 py-6'>
+                    {children}
+                  </div>
+                  {/* Main App */}
+                </div>
+              </Card>
+            </main>
 
             <Toaster richColors position='bottom-left' />
           </div>
