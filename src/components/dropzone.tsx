@@ -12,6 +12,7 @@ import { downloadFromBin, getFileExtension, isConverting } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 const MAX_FILE_COUNT = 10;
+const API_ENDPOINT = `${process.env.BACKEND_API || 'http://127.0.0.1:8000'}`;
 function Dropzone() {
   const {
     files,
@@ -24,6 +25,7 @@ function Dropzone() {
   } = useFileUpload({});
 
   const [converted, setConverted] = useState(false);
+  const [uuid, setUuid] = useState(null);
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     maxFiles: MAX_FILE_COUNT, // Max number of files to be dropped
     accept: {
@@ -58,17 +60,6 @@ function Dropzone() {
     resetFiles();
     setConverted(false);
   };
-  /**
-   * Download all converted file
-   */
-  const downloadAll = () => {
-    files.forEach((convertFile, index) => {
-      const { file, convertedBin, status, format } = convertFile;
-      if (convertedBin) {
-        downloadFromBin(convertedBin, file.name, format);
-      }
-    });
-  };
 
   /**
    * Convert batch of files , send fetch request to backend
@@ -79,11 +70,9 @@ function Dropzone() {
       return;
     }
 
-    const endpoint = `${process.env.BACKEND_API || 'http://127.0.0.1:8000'}`;
-    const fetchId = await fetch(`${endpoint}/uuid`);
-    const uuid = await fetchId.json().then((data) => data.uuid);
-    console.log(uuid);
-    return;
+    const fetchId = await fetch(`${API_ENDPOINT}/uuid`);
+    const resId = await fetchId.json().then((data) => data.uuid);
+    setUuid(resId);
     const response = await Promise.all(
       files.map(async (upload, index) => {
         const { file, status, format } = upload;
@@ -94,10 +83,13 @@ function Dropzone() {
 
         const form = new FormData();
         form.set('file', file);
-        const res = await fetch(`${endpoint}/upload?format=${format}`, {
-          method: 'POST',
-          body: form,
-        });
+        const res = await fetch(
+          `${API_ENDPOINT}/upload?format=${format}&uuid=${resId}`,
+          {
+            method: 'POST',
+            body: form,
+          }
+        );
 
         if (res.ok) {
           const blob = await res.blob();
@@ -146,14 +138,14 @@ function Dropzone() {
       </ScrollArea>
 
       <div className='flex flex-row justify-end space-x-2'>
-        <Button
+        {/* <Button
           disabled={files.filter((e) => e.status === 'Converted').length === 0}
           variant='outline'
           className='w-36'
           onClick={downloadAll}
         >
           Download all
-        </Button>
+        </Button> */}
         {!converted ? (
           <Button
             className='w-36'

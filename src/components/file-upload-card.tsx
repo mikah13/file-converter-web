@@ -57,6 +57,7 @@ function FileType({
         return { value: options[e], label: e };
       })
     : null;
+
   useEffect(() => {
     const endpoint = `${
       process.env.BACKEND_API || 'http://127.0.0.1:8000'

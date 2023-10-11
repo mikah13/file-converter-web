@@ -71,9 +71,12 @@ export function downloadFromBin(
   format: string = 'png'
 ) {
   if (!bin) return;
+  const lastDotIndex = filename.lastIndexOf('.');
+
+  let fn = filename.substring(0, lastDotIndex);
   const downloadLink = document.createElement('a');
   downloadLink.href = bin;
-  downloadLink.download = `${filename}.${format}`;
+  downloadLink.download = `${fn}.${format}`;
   downloadLink.click();
   URL.revokeObjectURL(bin);
 }
