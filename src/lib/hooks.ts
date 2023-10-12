@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ConvertFile } from '@/lib/types';
+import { useState, useEffect } from "react";
+import { ConvertFile } from "@/lib/types";
 type ImageFormats = {
   [key: string]: string;
 };
@@ -7,9 +7,7 @@ type ImageFormats = {
 export function useFormat() {
   const [formats, setFormats] = useState<ImageFormats>();
   useEffect(() => {
-    const endpoint = `${
-      process.env.BACKEND_API || 'http://127.0.0.1:8000'
-    }/extensions`;
+    const endpoint = `${process.env.BACKEND_API}/extensions`;
     fetch(endpoint)
       .then((res) => res.json())
       .then((data) => setFormats(data.extensions));
@@ -48,7 +46,7 @@ export function useFileUpload() {
           file.status = status;
         }
         return file;
-      })
+      }),
     );
   };
 
@@ -64,7 +62,7 @@ export function useFileUpload() {
           file.format = format;
         }
         return file;
-      })
+      }),
     );
   };
 
@@ -75,7 +73,7 @@ export function useFileUpload() {
           file.convertedBin = binary;
         }
         return file;
-      })
+      }),
     );
   };
 
@@ -86,7 +84,7 @@ export function useFileUpload() {
           file.quality = quality;
         }
         return file;
-      })
+      }),
     );
   };
 

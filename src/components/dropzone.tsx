@@ -11,15 +11,13 @@ import { useFileUpload, useFormat } from "@/lib/hooks";
 import { downloadFromBin, getFileExtension, isProcessing } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ClockClockwise } from "@phosphor-icons/react";
-
-// Register the plugin with FilePond
+import { env } from "process";
 
 const MAX_FILE_COUNT = 10;
-const API_ENDPOINT = `${process.env.BACKEND_API || "http://127.0.0.1:8000"}`;
+const API_ENDPOINT = `${process.env.BACKEND_API}`;
 function Dropzone({ mode = "converter" }: { mode?: string }) {
   const { formats } = useFormat();
   const [converted, setConverted] = useState(false);
-
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: MAX_FILE_COUNT, // Max number of files to be dropped
     // accept: 'image/*',
@@ -93,8 +91,6 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
           method: "POST",
           body: JSON.stringify({ filesize: file.size }),
         });
-
-        console.log(addNewFile);
 
         if (res.ok) {
           const blob = await res.blob();
