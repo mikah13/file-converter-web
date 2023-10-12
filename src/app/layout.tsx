@@ -9,6 +9,8 @@ import Dropzone from '@/components/dropzone';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
 import Statistics from '@/components/statistics';
+import Providers from '@/lib/providers';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -32,41 +34,43 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className='relative flex lg:max-h-screen flex-col'>
-            <main className='flex h-screen p-2 '>
-              <Card className='flex w-full h-full flex-col relative'>
-                <div className='w-full flex justify-between'>
-                  <Header />
-                  <div>
-                    <ModeToggle />
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="relative flex flex-col lg:max-h-screen">
+              <main className="flex h-screen p-2 ">
+                <Card className="relative flex h-full w-full flex-col">
+                  <div className="flex w-full justify-between">
+                    <Header />
+                    <div>
+                      <ModeToggle />
+                    </div>
                   </div>
-                </div>
 
-                <div className='flex flex-row h-full w-full border-t'>
-                  <Sidebar />
+                  <div className="flex h-full w-full flex-row border-t">
+                    <Sidebar />
 
-                  {/* Main App */}
-                  <div className='relative border-l h-full w-full p-0'>
-                    {children}
+                    {/* Main App */}
+                    <div className="relative h-full w-full border-l p-0">
+                      {children}
 
-                    <Statistics />
+                      <Statistics />
+                    </div>
+                    {/* Main App */}
                   </div>
-                  {/* Main App */}
-                </div>
-              </Card>
-            </main>
+                </Card>
+              </main>
 
-            <Toaster richColors position='bottom-left' />
-          </div>
-        </ThemeProvider>
+              <Toaster richColors position="bottom-left" />
+            </div>
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
