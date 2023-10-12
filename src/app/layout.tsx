@@ -1,20 +1,20 @@
-import { ThemeProvider } from '@/components/theme-providers';
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import { Toaster, toast } from 'sonner';
-import { ModeToggle } from '@/components/mode-toggle';
-import { Card } from '@/components/ui/card';
-import Dropzone from '@/components/dropzone';
-import Header from '@/components/header';
-import Sidebar from '@/components/sidebar';
-import Statistics from '@/components/statistics';
-import Providers from '@/lib/providers';
+import { ThemeProvider } from "@/components/theme-providers";
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter, AR_One_Sans } from "next/font/google";
+import { Toaster, toast } from "sonner";
+import { ModeToggle } from "@/components/mode-toggle";
+import { Card } from "@/components/ui/card";
+import Dropzone from "@/components/dropzone";
+import Header from "@/components/header";
+import Sidebar from "@/components/sidebar";
+import Statistics from "@/components/statistics";
+import Providers from "@/lib/providers";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = AR_One_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "iConvert",
+  title: "iConvert | Free converter tool",
   icons: {
     icon: "/favicon.ico",
   },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   colorScheme: "dark",
   creator: "Mike Hoang",
   openGraph: {
-    title: "iConvert",
+    title: "iConvert | Free converter tool",
     description:
       "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
     url: "https://iconvert.vercel.app/",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "iConvert",
+    title: "iConvert | Free converter tool",
     description:
       "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
     images: [
