@@ -121,13 +121,7 @@ function Header({}: Props) {
           <MenubarTrigger className='font-bold'>File</MenubarTrigger>
           <MenubarContent>
             <MenubarItem>About Us</MenubarItem>
-            <MenubarItem
-              onClick={(_) => {
-                setOpen(true);
-              }}
-            >
-              Privacy
-            </MenubarItem>
+
             {/* <MenubarSeparator />
             <MenubarItem>
               Preferences... <MenubarShortcut>⌘,</MenubarShortcut>
@@ -163,7 +157,19 @@ function Header({}: Props) {
               Quit <MenubarShortcut>⌘Q</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
+          <MenubarSeparator />
         </MenubarMenu>
+        <MenubarMenu>
+          <MenubarTrigger
+            onClick={(_) => {
+              setOpen(true);
+            }}
+            className='font-bold'
+          >
+            Privacy
+          </MenubarTrigger>
+        </MenubarMenu>
+      
       </Menubar>
     </div>
   );
