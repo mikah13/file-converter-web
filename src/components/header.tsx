@@ -72,16 +72,6 @@ function PrivacyPolicy({
             </ul>
 
             <h2 className='scroll-m-20  pb-1 mt-3 text-xl font-semibold tracking-tight'>
-              Use of Information
-            </h2>
-            <p>We only use the information collected as described above to:</p>
-            <ul>
-              <li>Ensure the proper functioning and security of iConvert.</li>
-              <li>Monitor and analyze application usage and performance.</li>
-              <li>Comply with legal requirements and protect our rights.</li>
-            </ul>
-
-            <h2 className='scroll-m-20  pb-1 mt-3 text-xl font-semibold tracking-tight'>
               Data Sharing
             </h2>
             <p>
@@ -99,10 +89,7 @@ function PrivacyPolicy({
               unauthorized access, alteration, disclosure, or destruction.
             </p>
 
-            <p>
-              By using iConvert you agree to the practices described in this
-              Privacy Policy.
-            </p>
+           
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
@@ -169,7 +156,6 @@ function Header({}: Props) {
             Privacy
           </MenubarTrigger>
         </MenubarMenu>
-      
       </Menubar>
     </div>
   );
