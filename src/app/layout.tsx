@@ -14,6 +14,7 @@ import Providers from "@/lib/providers";
 const inter = AR_One_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://iconvert.vercel.app"),
   title: "iConvert | Free converter tool",
   icons: {
     icon: "/favicon.ico",

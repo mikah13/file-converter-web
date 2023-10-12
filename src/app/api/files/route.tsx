@@ -10,3 +10,14 @@ export async function GET() {
   const fileCounts = await prisma.file.count();
   return NextResponse.json({ totalSize, fileCounts });
 }
+
+export async function POST(request: Request) {
+  const { filesize } = await request.json();
+
+  const newFile = await prisma.file.create({
+    data: {
+      size: filesize,
+    },
+  });
+  return NextResponse.json({ newFile });
+}

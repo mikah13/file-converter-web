@@ -1,22 +1,22 @@
-'use client';
-import { FileWithPath, useDropzone } from 'react-dropzone';
+"use client";
+import { FileWithPath, useDropzone } from "react-dropzone";
 
-import React, { useEffect, useState } from 'react';
-import { Button } from './ui/button';
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
 
-import { Toaster, toast } from 'sonner';
-import { ConvertFile } from '@/lib/types';
-import FileUploadCard from './file-upload-card';
-import { useFileUpload, useFormat } from '@/lib/hooks';
-import { downloadFromBin, getFileExtension, isProcessing } from '@/lib/utils';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ClockClockwise } from '@phosphor-icons/react';
+import { Toaster, toast } from "sonner";
+import { ConvertFile } from "@/lib/types";
+import FileUploadCard from "./file-upload-card";
+import { useFileUpload, useFormat } from "@/lib/hooks";
+import { downloadFromBin, getFileExtension, isProcessing } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ClockClockwise } from "@phosphor-icons/react";
 
 // Register the plugin with FilePond
 
 const MAX_FILE_COUNT = 10;
-const API_ENDPOINT = `${process.env.BACKEND_API || 'http://127.0.0.1:8000'}`;
-function Dropzone({ mode = 'converter' }: { mode?: string }) {
+const API_ENDPOINT = `${process.env.BACKEND_API || "http://127.0.0.1:8000"}`;
+function Dropzone({ mode = "converter" }: { mode?: string }) {
   const { formats } = useFormat();
   const [converted, setConverted] = useState(false);
 
@@ -25,18 +25,18 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
     // accept: 'image/*',
     onDrop: (acceptedFiles) => {
       if (converted) {
-        toast.message('Please press start again for new conversion');
+        toast.message("Please press start again for new conversion");
         return;
       }
       if (files.length >= MAX_FILE_COUNT) {
-        toast.error('Maximum number of files reached');
+        toast.error("Maximum number of files reached");
         return;
       }
       acceptedFiles
-        .filter((e) => e.type.indexOf('image') !== -1)
+        .filter((e) => e.type.indexOf("image") !== -1)
         .map((e: FileWithPath) => ({
           file: e,
-          status: 'Uploaded',
+          status: "Uploaded",
           format: getFileExtension(e.name),
           convertedBin: null,
           quality: 95,
@@ -67,63 +67,70 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
    */
   const convertAll = async () => {
     if (files.length === 0) {
-      toast.error('Please select files to convert');
+      toast.error("Please select files to convert");
       return;
     }
 
     const response = await Promise.all(
       files.map(async (upload, index) => {
         const { file, status, format, quality } = upload;
-        if (status === 'Completed') {
+        if (status === "Completed") {
           return;
         }
-        updateFileStatus(index, 'Processing');
+        updateFileStatus(index, "Processing");
 
         const form = new FormData();
-        form.set('file', file);
+        form.set("file", file);
         const res = await fetch(
           `${API_ENDPOINT}/convert?format=${format}&quality=${quality}`,
           {
-            method: 'POST',
+            method: "POST",
             body: form,
-          }
+          },
         );
+
+        const addNewFile = await fetch("/api/files", {
+          method: "POST",
+          body: JSON.stringify({ filesize: file.size }),
+        });
+
+        console.log(addNewFile);
 
         if (res.ok) {
           const blob = await res.blob();
           const blobUrl = URL.createObjectURL(blob);
-          updateFileStatus(index, 'Completed');
+          updateFileStatus(index, "Completed");
           updateConvertedBin(index, blobUrl);
         } else {
-          updateFileStatus(index, 'Error');
+          updateFileStatus(index, "Error");
         }
-      })
+      }),
     );
 
     setConverted(true);
   };
 
   return (
-    <div className='flex flex-col space-y-4 px-6 py-4'>
+    <div className="flex flex-col space-y-4 px-6 py-4">
       <Button
         disabled={converted || isProcessing(files)}
-        variant='outline'
+        variant="outline"
         {...getRootProps({
           className: `dropzone border-dashed border-4 w-full h-24 ${
-            converted ? 'cursor-not-allowed' : 'cursor-pointer'
+            converted ? "cursor-not-allowed" : "cursor-pointer"
           }`,
         })}
       >
         <div>
-          <input {...getInputProps()} type='file' accept='image/*' />
+          <input {...getInputProps()} type="file" accept="image/*" />
           <p>
-            Drag and drop images here, or click to select files. Maximum of{' '}
+            Drag and drop images here, or click to select files. Maximum of{" "}
             {MAX_FILE_COUNT} files
           </p>
         </div>
       </Button>
 
-      <ScrollArea className='h-[500px] rounded-md border p-4'>
+      <ScrollArea className="h-[500px] rounded-md border p-4">
         {files.map((upload: ConvertFile, index: number) => (
           <FileUploadCard
             formats={formats}
@@ -136,19 +143,19 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
         ))}
       </ScrollArea>
 
-      <div className='flex flex-row justify-end space-x-2'>
+      <div className="flex flex-row justify-end space-x-2">
         {!converted ? (
           <Button
-            className='w-36'
+            className="w-36"
             disabled={isProcessing(files)}
             onClick={convertAll}
           >
-            {mode === 'converter' && 'Convert all'}
-            {mode === 'compressor' && 'Compress all'}
+            {mode === "converter" && "Convert all"}
+            {mode === "compressor" && "Compress all"}
           </Button>
         ) : (
-          <Button className='w-36' onClick={reset}>
-            <ClockClockwise size={24} className='mr-1' /> Start again
+          <Button className="w-36" onClick={reset}>
+            <ClockClockwise size={24} className="mr-1" /> Start again
           </Button>
         )}
       </div>
