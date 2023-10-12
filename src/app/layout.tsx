@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import Dropzone from '@/components/dropzone';
 import Header from '@/components/header';
 import Sidebar from '@/components/sidebar';
+import Statistics from '@/components/statistics';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -22,13 +23,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Mike Hoang' }],
   colorScheme: 'dark',
   creator: 'Mike Hoang',
-  // openGraph: {
-  //   title: 'iConvert',
-  //   description: 'A free image converter. Your data is your data.',
-  //   siteName: 'iConvert',
-  //   locale: 'en_US',
-  //   type: 'website',
-  // },
+
 };
 
 export default function RootLayout({
@@ -59,8 +54,10 @@ export default function RootLayout({
                   <Sidebar />
 
                   {/* Main App */}
-                  <div className='border-l h-full w-full px-12 py-6'>
+                  <div className='relative border-l h-full w-full p-0'>
                     {children}
+
+                    <Statistics />
                   </div>
                   {/* Main App */}
                 </div>

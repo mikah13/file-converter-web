@@ -104,7 +104,7 @@ function Dropzone({ mode = 'converter' }: { mode?: string }) {
   };
 
   return (
-    <div className='flex flex-col space-y-4'>
+    <div className='flex flex-col space-y-4 px-6 py-4'>
       <Button
         disabled={converted || isProcessing(files)}
         variant='outline'

@@ -44,7 +44,7 @@ const Sidebar = (props: Props) => {
         </div>
       </div>
 
-      <div className='border-t text-sm px-1 py-2 text-center'>
+      <div className='border-t h-10 text-sm px-1 py-2 text-center'>
         <span>
           From{' '}
           <Link
