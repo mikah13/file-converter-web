@@ -7,7 +7,7 @@ import { formatBytes } from "@/lib/utils";
 export const dynamic = "force-dynamic";
 async function getMetaData() {
   const { signal } = new AbortController();
-  const res = await fetch("/api/files", { signal, cache: "no-store" });
+  const res = await fetch("/api/files", { signal });
   const data = await res.json();
   return data;
 }
