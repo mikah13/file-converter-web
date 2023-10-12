@@ -4,9 +4,10 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 import { formatBytes } from "@/lib/utils";
-
+export const dynamic = "force-dynamic";
 async function getMetaData() {
-  const res = await fetch("/api/files");
+  const { signal } = new AbortController();
+  const res = await fetch("/api/files", { signal, cache: "no-store" });
   const data = await res.json();
   return data;
 }
