@@ -14,18 +14,45 @@ import Providers from '@/lib/providers';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'iConvert',
+  title: "iConvert",
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
-  description: 'A free image converter. Your data is your data.',
-  applicationName: 'iConvert',
-  referrer: 'origin-when-cross-origin',
-  keywords: ['Next.js', 'Image Conversion', 'Free', 'TypeScript'],
-  authors: [{ name: 'Mike Hoang' }],
-  colorScheme: 'dark',
-  creator: 'Mike Hoang',
-
+  description:
+    "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
+  applicationName: "iConvert",
+  referrer: "origin-when-cross-origin",
+  keywords: ["Next.js", "Image Conversion", "Free", "TypeScript"],
+  authors: [{ name: "Mike Hoang" }],
+  colorScheme: "dark",
+  creator: "Mike Hoang",
+  openGraph: {
+    title: "iConvert",
+    description:
+      "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
+    url: "https://iconvert.vercel.app/",
+    images: [
+      {
+        url: "https://iconvert.vercel.app/favicon.ico",
+        width: 128,
+        height: 128,
+        alt: "iConvert",
+      },
+    ],
+  },
+  twitter: {
+    title: "iConvert",
+    description:
+      "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
+    images: [
+      {
+        url: "https://iconvert.vercel.app/favicon.ico",
+        width: 128,
+        height: 128,
+        alt: "iConvert",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
