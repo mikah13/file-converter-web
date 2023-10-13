@@ -3,19 +3,20 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, AR_One_Sans } from "next/font/google";
 import { Toaster, toast } from "sonner";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Card } from "@/components/ui/card";
 import Dropzone from "@/components/dropzone";
 import Header from "@/components/header";
 import Sidebar from "@/components/sidebar";
 import Statistics from "@/components/statistics";
 import Providers from "@/lib/providers";
+import HeaderAction from "@/components/header-action";
+
 
 const inter = AR_One_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://iconvert.vercel.app"),
-  title: "iConvert | Free converter tool",
+  title: "iConvert | Free conversion tool",
   icons: {
     icon: "/favicon.ico",
   },
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   colorScheme: "dark",
   creator: "Mike Hoang",
   openGraph: {
-    title: "iConvert | Free converter tool",
+    title: "iConvert | Free conversion tool",
     description:
       "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
     url: "https://iconvert.vercel.app/",
@@ -42,7 +43,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    title: "iConvert | Free converter tool",
+    title: "iConvert | Free conversion tool",
     description:
       "iConvert let you convert and compress images effortlessly to PNG, JPEG, TIFF, BMP, etc. No signup required. Your data stays private. Enjoy easy image conversion and compression.",
     images: [
@@ -76,9 +77,7 @@ export default function RootLayout({
                 <Card className="relative flex h-full w-full flex-col">
                   <div className="flex w-full justify-between">
                     <Header />
-                    <div>
-                      <ModeToggle />
-                    </div>
+                   <HeaderAction />
                   </div>
 
                   <div className="flex h-full w-full flex-row border-t">

@@ -2,8 +2,9 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-
+import { ArrowsClockwise, FileArchive } from "@phosphor-icons/react";
 import { usePathname, redirect, useRouter } from "next/navigation";
+import { Separator } from "./ui/separator";
 type Props = {};
 
 const Sidebar = (props: Props) => {
@@ -14,23 +15,25 @@ const Sidebar = (props: Props) => {
   };
 
   const getButtonVariant = (path: string) => {
-    if (path === "converter" && pathname === "/") return "secondary";
     return isPathname(path) ? "secondary" : "ghost";
   };
   return (
     <div className="relative hidden  w-[250px] flex-col justify-between lg:flex">
       <div className="space-y-4 py-4">
-        <div className="px-3 py-2">
-          <div className="mb-4 flex h-12 w-full items-center justify-center border-2">
+        <div className="space-y-2 px-3 py-2">
+          <Link
+            href="/"
+            className="mb-4 flex h-12 w-full items-center justify-center border-2"
+          >
             <h1 className="text-lg font-semibold tracking-tight">iConvert</h1>
-          </div>
+          </Link>
           <div className="space-y-1">
             <Button
               variant={getButtonVariant("converter")}
               onClick={() => router.push("/converter")}
               className="w-full justify-start rounded-none"
             >
-              Image Converter
+              <ArrowsClockwise size={24} className="mr-1" /> Converter
             </Button>
           </div>
           <div className="space-y-1">
@@ -39,7 +42,7 @@ const Sidebar = (props: Props) => {
               onClick={() => router.push("/compressor")}
               className="w-full justify-start rounded-none"
             >
-              Image Compressor
+              <FileArchive size={24} className="mr-1" /> Compressor
             </Button>
           </div>
         </div>

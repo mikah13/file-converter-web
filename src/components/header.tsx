@@ -120,7 +120,7 @@ function Header({}: Props) {
               <MenubarSubContent>
                 <MenubarItem
                   onClick={() => {
-                    copyToClipboard('https://iConvert.vercel.app/');
+                    copyToClipboard('https://iconvert.vercel.app/');
                     toast.success('Copied to clipboard !');
                   }}
                 >
