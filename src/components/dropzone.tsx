@@ -84,7 +84,7 @@ function Dropzone({ mode = Mode.Converter }: { mode?: string }) {
   };
 
   return (
-    <div className="flex flex-col space-y-4 px-6 py-4">
+    <div className="flex grow flex-col space-y-4 px-6 py-4">
       <Button
         disabled={processed || isProcessing(files)}
         variant="outline"
@@ -103,7 +103,7 @@ function Dropzone({ mode = Mode.Converter }: { mode?: string }) {
         </div>
       </Button>
 
-      <ScrollArea className="h-[500px] rounded-md border p-4">
+      <ScrollArea className="h-full max-h-[400px] rounded-md border p-4">
         {files.map((upload: UploadFile, index: number) => (
           <FileUploadCard
             formats={formats}

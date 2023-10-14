@@ -1,41 +1,27 @@
 "use client";
+import CollageMosaic from "@/components/collage-mosaic";
+import CollageSidebar from "@/components/collage-sidebar";
+import {
+  CollageContext,
+  UploadContext,
+  UploadContextProvider,
+} from "@/lib/collage-context";
 import React from "react";
-import { Mosaic, MosaicWindow } from "react-mosaic-component";
 
-export type ViewId = "a" | "b" | "c" | "new";
-
-const TITLE_MAP: Record<ViewId, string> = {
-  a: "Left Window",
-  b: "Top Right Window",
-  c: "Bottom Right Window",
-  new: "New Window",
-};
 type Props = {};
 
 const Collage = (props: Props) => {
   return (
-    <div className="m-0 h-full max-h-[600px] w-full max-w-[600px]">
-      <Mosaic<ViewId>
-        renderTile={(id, path) => (
-          <MosaicWindow<ViewId>
-            path={path}
-            createNode={() => "new"}
-            title={TITLE_MAP[id]}
-          >
-            <h1>{TITLE_MAP[id]}</h1>
-          </MosaicWindow>
-        )}
-        initialValue={{
-          direction: "row",
-          first: "a",
-          second: {
-            direction: "column",
-            first: "b",
-            second: "c",
-          },
-        }}
-      />
-    </div>
+    <UploadContextProvider>
+      <div className="flex h-full w-full flex-row">
+        <div className="flex lg:w-60 xl:w-80">
+          <CollageSidebar />
+        </div>
+        <div className="m-0 h-full max-h-[650px] w-full max-w-[1200px] grow">
+          <CollageMosaic />
+        </div>
+      </div>
+    </UploadContextProvider>
   );
 };
 

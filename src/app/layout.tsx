@@ -84,7 +84,7 @@ export default function RootLayout({
                     <Sidebar />
 
                     {/* Main App */}
-                    <div className="relative h-full w-full border-l p-0">
+                    <div className="relative flex flex-col h-full w-full border-l p-0">
                       {children}
 
                       <Statistics />
