@@ -5,7 +5,7 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 model File {
@@ -13,8 +13,7 @@ model File {
     size Float // You can use `Int` instead of `Float` if size should be an integer
 }
 
-model FileSize {
-    id    Int   @id @default(autoincrement())
-    total Float
-    name String
+model CompressSize {
+    id   Int   @id @default(autoincrement())
+    size Float
 }

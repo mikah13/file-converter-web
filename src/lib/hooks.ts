@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ConvertFile } from "@/lib/types";
+import { UploadFile } from "@/lib/types";
 type ImageFormats = {
   [key: string]: string;
 };
@@ -16,7 +16,7 @@ export function useFormat() {
 }
 
 export function useFileUpload() {
-  const [files, setFiles] = useState<ConvertFile[]>([]);
+  const [files, setFiles] = useState<UploadFile[]>([]);
 
   /**
    * removeFile from the list using index
@@ -30,7 +30,7 @@ export function useFileUpload() {
    * addFile to the list of files
    * @param file
    */
-  const addFile = (file: ConvertFile) => {
+  const addFile = (file: UploadFile) => {
     let newFiles = files;
     newFiles.push(file);
     setFiles(newFiles);

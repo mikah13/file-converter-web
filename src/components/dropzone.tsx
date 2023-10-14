@@ -4,25 +4,22 @@ import { FileWithPath, useDropzone } from "react-dropzone";
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 
-import { Toaster, toast } from "sonner";
-import { ConvertFile } from "@/lib/types";
+import { toast } from "sonner";
+import { UploadFile, Mode } from "@/lib/types";
 import FileUploadCard from "./file-upload-card";
 import { useFileUpload, useFormat } from "@/lib/hooks";
-import { downloadFromBin, getFileExtension, isProcessing } from "@/lib/utils";
+import { sendFileRequest, handleOnDrop, isProcessing } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ClockClockwise } from "@phosphor-icons/react";
-import { env } from "process";
-
 const MAX_FILE_COUNT = 10;
 const API_ENDPOINT = `${process.env.BACKEND_API}`;
-function Dropzone({ mode = "converter" }: { mode?: string }) {
+function Dropzone({ mode = Mode.Converter }: { mode?: string }) {
   const { formats } = useFormat();
-  const [converted, setConverted] = useState(false);
+  const [processed, setProcessed] = useState(false);
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: MAX_FILE_COUNT, // Max number of files to be dropped
-    // accept: 'image/*',
     onDrop: (acceptedFiles) => {
-      if (converted) {
+      if (processed) {
         toast.message("Please press start again for new conversion");
         return;
       }
@@ -30,18 +27,7 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
         toast.error("Maximum number of files reached");
         return;
       }
-      acceptedFiles
-        .filter((e) => e.type.indexOf("image") !== -1)
-        .map((e: FileWithPath) => ({
-          file: e,
-          status: "Uploaded",
-          format: getFileExtension(e.name),
-          convertedBin: null,
-          quality: 95,
-        }))
-        .map((e) => {
-          addFile(e);
-        });
+      handleOnDrop(acceptedFiles, addFile);
     },
   });
   const {
@@ -57,7 +43,7 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
 
   const reset = () => {
     resetFiles();
-    setConverted(false);
+    setProcessed(false);
   };
 
   /**
@@ -65,7 +51,7 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
    */
   const convertAll = async () => {
     if (files.length === 0) {
-      toast.error("Please select files to convert");
+      toast.error("No file found. Please upload a file ...");
       return;
     }
 
@@ -76,49 +62,36 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
           return;
         }
         updateFileStatus(index, "Processing");
-
-        const form = new FormData();
-        form.set("file", file);
-        const res = await fetch(
-          `${API_ENDPOINT}/convert?format=${format}&quality=${quality}`,
-          {
-            method: "POST",
-            body: form,
-          },
-        );
-
-        const addNewFile = await fetch("/api/files", {
-          method: "POST",
-          body: JSON.stringify({ filesize: file.size }),
-        });
-
-        if (res.ok) {
+        const res = await sendFileRequest(upload, mode);
+        if (res?.ok) {
           const blob = await res.blob();
+          
           const blobUrl = URL.createObjectURL(blob);
           updateFileStatus(index, "Completed");
           updateConvertedBin(index, blobUrl);
+          toast.success("File processed successfully");
         } else {
           updateFileStatus(index, "Error");
         }
       }),
     );
 
-    setConverted(true);
+    setProcessed(true);
   };
 
   return (
     <div className="flex flex-col space-y-4 px-6 py-4">
       <Button
-        disabled={converted || isProcessing(files)}
+        disabled={processed || isProcessing(files)}
         variant="outline"
         {...getRootProps({
           className: `dropzone border-dashed border-4 w-full h-24 ${
-            converted ? "cursor-not-allowed" : "cursor-pointer"
+            processed ? "cursor-not-allowed" : "cursor-pointer"
           }`,
         })}
       >
         <div>
-          <input {...getInputProps()} type="file" accept="image/*" />
+          <input {...getInputProps()} type="file" accept="image/png" />
           <p>
             Drag and drop images here, or click to select files. Maximum of{" "}
             {MAX_FILE_COUNT} files
@@ -127,7 +100,7 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
       </Button>
 
       <ScrollArea className="h-[500px] rounded-md border p-4">
-        {files.map((upload: ConvertFile, index: number) => (
+        {files.map((upload: UploadFile, index: number) => (
           <FileUploadCard
             formats={formats}
             mode={mode}
@@ -140,7 +113,7 @@ function Dropzone({ mode = "converter" }: { mode?: string }) {
       </ScrollArea>
 
       <div className="flex flex-row justify-end space-x-2">
-        {!converted ? (
+        {!processed ? (
           <Button
             className="w-36"
             disabled={isProcessing(files)}

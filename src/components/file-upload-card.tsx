@@ -1,4 +1,4 @@
-import { ConvertFile } from "@/lib/types";
+import { Mode, UploadFile } from "@/lib/types";
 import React from "react";
 import { FileImage, Trash, DownloadSimple } from "@phosphor-icons/react";
 import { Card } from "./ui/card";
@@ -28,7 +28,7 @@ type ImageFormats = {
 };
 
 type Props = {
-  fileUpload: ConvertFile;
+  fileUpload: UploadFile;
   removeFile: Function;
   index: number;
   updateFileFormat: Function;
@@ -184,7 +184,7 @@ const FileUploadCard = ({
       </div>
 
       <div className="flex w-72 items-center justify-end space-x-2 ">
-        {mode === "converter" && (
+        {mode === Mode.Converter && (
           <FileType
             formats={formats}
             index={index}
@@ -192,7 +192,7 @@ const FileUploadCard = ({
             extension={format || " "}
           />
         )}
-        {mode === "compressor" && (
+        {mode === Mode.Compressor && (
           <FileQuality
             index={index}
             updateFileQuality={updateFileQuality}
