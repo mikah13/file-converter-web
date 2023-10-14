@@ -10,7 +10,7 @@ import Sidebar from "@/components/sidebar";
 import Statistics from "@/components/statistics";
 import Providers from "@/lib/providers";
 import HeaderAction from "@/components/header-action";
-
+import "react-mosaic-component/react-mosaic-component.css";
 
 const inter = AR_One_Sans({ subsets: ["latin"] });
 
@@ -77,7 +77,7 @@ export default function RootLayout({
                 <Card className="relative flex h-full w-full flex-col">
                   <div className="flex w-full justify-between">
                     <Header />
-                   <HeaderAction />
+                    <HeaderAction />
                   </div>
 
                   <div className="flex h-full w-full flex-row border-t">
