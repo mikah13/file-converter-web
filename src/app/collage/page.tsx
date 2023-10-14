@@ -13,7 +13,7 @@ type Props = {};
 const Collage = (props: Props) => {
   return (
     <UploadContextProvider>
-      <div className="flex h-full w-full flex-row">
+      <div className="flex h-full w-full grow flex-row">
         <div className="flex lg:w-60 xl:w-80">
           <CollageSidebar />
         </div>

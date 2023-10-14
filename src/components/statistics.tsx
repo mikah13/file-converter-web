@@ -19,7 +19,7 @@ function Statistics() {
     refetchInterval: 1000,
   });
   return (
-    <div className="flex h-10 w-96 flex-row justify-evenly border-r  border-t text-sm">
+    <div className="flex h-10 w-96 flex-none flex-row justify-evenly border-r  border-t text-sm">
       <div className="flex h-full w-full flex-row items-center justify-evenly border-r px-2">
         <span>Online</span>
         <span className="flex  h-2 w-2 rounded-full bg-green-400" />
@@ -37,10 +37,12 @@ function Statistics() {
       <div className="flex h-full w-full flex-row items-center justify-center border-r px-2">
         <span>
           {data ? (
-            `Processed: ${formatBytes(data.totalSize?._sum.size || 0)}`
+            <span className="flex flex-col">
+              <span> Processed:</span>
+              <span>{formatBytes(data.totalSize?._sum.size || 0)}</span>
+            </span>
           ) : (
             <>
-              {" "}
               <Skeleton className="mb-1  h-2 w-16" />
               <Skeleton className="h-2  w-16" />
             </>
@@ -50,10 +52,12 @@ function Statistics() {
       <div className="flex h-full w-full flex-row  items-center justify-center px-2">
         <span>
           {data ? (
-            `Saved: ${formatBytes(data.compressSize?._sum.size || 0)}`
+            <span className="flex flex-col">
+              <span> Saved:</span>
+              <span>{formatBytes(data.compressSize?._sum.size || 0)}</span>
+            </span>
           ) : (
             <>
-              {" "}
               <Skeleton className="mb-1  h-2 w-16" />
               <Skeleton className="h-2  w-16" />
             </>

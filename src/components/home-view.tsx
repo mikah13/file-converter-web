@@ -14,7 +14,7 @@ import { CurrencyCircleDollar, EyeSlash, Share } from "@phosphor-icons/react";
 
 const HomeView = (props: Props) => {
   return (
-    <div className="flex flex-col justify-center space-y-4 px-6 py-4">
+    <div className="flex grow flex-col justify-center space-y-4 px-6 py-4">
       <article className="prose-lg prose-zinc ">
         <div className="mt-3 text-center">
           <h1>iConvert</h1>
@@ -30,7 +30,7 @@ const HomeView = (props: Props) => {
         </div>
       </article>
       <div className="grid grid-cols-3 gap-x-4">
-        <Card className="group h-48  cursor-pointer border-4 duration-100 hover:border-indigo-400">
+        <Card className="group h-40  cursor-pointer border-4 duration-100 hover:border-indigo-400">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>
               <CurrencyCircleDollar size={36} />
@@ -43,7 +43,7 @@ const HomeView = (props: Props) => {
           </CardContent>
         </Card>
 
-        <Card className="group h-48  cursor-pointer  border-4 duration-100 hover:border-emerald-400">
+        <Card className="group h-40  cursor-pointer  border-4 duration-100 hover:border-emerald-400">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>
               <EyeSlash size={36} />
@@ -51,10 +51,10 @@ const HomeView = (props: Props) => {
           </CardHeader>
           <CardContent>
             <div className="mb-2 text-xl font-bold">Free of cookies</div>
-            <p>Cookies are for dessert and not for storing.</p>
+            <p>We only eat cookies here.</p>
           </CardContent>
         </Card>
-        <Card className="group h-48 cursor-pointer   border-4 duration-100 hover:border-yellow-400">
+        <Card className="group h-40 cursor-pointer   border-4 duration-100 hover:border-yellow-400">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle>
               <Share size={36} />
@@ -63,7 +63,7 @@ const HomeView = (props: Props) => {
           <CardContent>
             <div className="mb-2 text-xl font-bold">Free to share</div>
 
-            <p>Sharing is caring !</p>
+            <p>Feel free to share this tool !</p>
           </CardContent>
         </Card>
       </div>
