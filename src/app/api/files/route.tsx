@@ -8,12 +8,12 @@ export async function GET() {
     },
   });
   const fileCounts = await prisma.file.count();
-  //   const compressSize = await prisma.compressSize.aggregate({
-  //     _sum: {
-  //       size: true,
-  //     },
-  //   });
-  return NextResponse.json({ totalSize, fileCounts });
+  const compressSize = await prisma.compressSize.aggregate({
+    _sum: {
+      size: true,
+    },
+  });
+  return NextResponse.json({ totalSize, fileCounts, compressSize });
 }
 
 export async function POST(request: Request) {

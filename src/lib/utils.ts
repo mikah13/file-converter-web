@@ -178,13 +178,5 @@ export async function handleCompress(uploadFile: UploadFile) {
       body: form,
     },
   );
-  const blob = await res.blob();
-  const size = blob.size;
-
-  const compressSize = await fetch("/api/files/compress", {
-    method: "POST",
-    body: JSON.stringify({ filesize: size }),
-  });
-
   return res;
 }

@@ -24,10 +24,17 @@ function Statistics() {
         <span className="flex  h-2 w-2 rounded-full bg-green-400" />
       </div>
       <div className="flex h-full w-full flex-row items-center justify-center border-r px-2">
-        <span> {data && data.fileCounts} file(s) </span>
+        <span> {data && `${data.fileCounts} file(s)`} </span>
       </div>
-      <div className="flex h-full w-full flex-row items-center justify-center px-2">
-        <span> {data && formatBytes(data.totalSize._sum.size || 0)} </span>
+      <div className="flex h-full w-full flex-row items-center justify-center border-r px-2">
+        <span>
+          {data && `Processed: ${formatBytes(data.totalSize?._sum.size || 0)}`}
+        </span>
+      </div>
+      <div className="flex h-full w-full flex-row  items-center justify-center px-2">
+        <span>
+          {data && `Saved: ${formatBytes(data.compressSize?._sum.size || 0)}`}
+        </span>
       </div>
     </div>
   );

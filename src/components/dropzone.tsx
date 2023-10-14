@@ -65,7 +65,11 @@ function Dropzone({ mode = Mode.Converter }: { mode?: string }) {
         const res = await sendFileRequest(upload, mode);
         if (res?.ok) {
           const blob = await res.blob();
-          
+
+          const compressSize = await fetch("/api/files/compress", {
+            method: "POST",
+            body: JSON.stringify({ filesize: Math.abs(file.size - blob.size) }),
+          });
           const blobUrl = URL.createObjectURL(blob);
           updateFileStatus(index, "Completed");
           updateConvertedBin(index, blobUrl);
