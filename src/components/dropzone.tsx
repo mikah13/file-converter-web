@@ -84,7 +84,7 @@ function Dropzone({ mode = Mode.Converter }: { mode?: string }) {
   };
 
   return (
-    <div className="flex grow flex-col space-y-4 px-6 py-4">
+    <div className="flex grow flex-col space-y-4 px-6 py-6">
       <Button
         disabled={processed || isProcessing(files)}
         variant="outline"

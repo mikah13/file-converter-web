@@ -83,18 +83,18 @@ const CollageSidebar = () => {
   });
 
   return (
-    <div className="flex w-full flex-col space-y-3 border-r px-3 py-6">
+    <div className="flex w-full flex-col space-y-3 border-r px-6 py-6">
       <Button
         variant="outline"
         {...getRootProps({
-          className: `dropzone border-dashed h-20`,
+          className: `dropzone border-dashed border-4 w-full h-24`,
         })}
       >
         <input {...getInputProps()} type="file" accept="image/png" />
         <PlusCircle className="mr-2 h-4 w-4" /> Upload Image
       </Button>
 
-      <div className="grid grid-cols-4 ">
+      <div className="grid h-[400px] grid-cols-4 gap-6 overflow-x-scroll">
         <ImageDisplay />
       </div>
     </div>
