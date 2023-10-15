@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Mosaic, MosaicWindow } from "react-mosaic-component";
 
-import { CollageContext, useUpload } from "@/lib/collage-context";
+import { CollageContext, useUpload } from "@/lib/collage-providers";
 export type ViewId = "a" | "b" | "c" | "new" | "d";
 
 const TITLE_MAP: Record<ViewId, string> = {
@@ -18,7 +18,6 @@ function CollageMosaic({}: Props) {
   const { images, updateImages } = useUpload();
   return (
     <div>
-      {images}
       <Mosaic<ViewId>
         renderTile={(id, path) => (
           <MosaicWindow<ViewId>

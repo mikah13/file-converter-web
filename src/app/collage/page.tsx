@@ -5,7 +5,7 @@ import {
   CollageContext,
   UploadContext,
   UploadContextProvider,
-} from "@/lib/collage-context";
+} from "@/lib/collage-providers";
 import React from "react";
 
 type Props = {};

@@ -2,17 +2,35 @@ import {
   FileWithPreview,
   UploadContext,
   useUpload,
-} from "@/lib/collage-context";
+} from "@/lib/collage-providers";
 import React, { useContext, useEffect } from "react";
 import { Button } from "./ui/button";
 import { PlusCircle } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { FileWithPath, useDropzone } from "react-dropzone";
 import Image from "next/image";
+import { AspectRatio } from "./ui/aspect-ratio";
+import { DndProvider } from "@/lib/dnd-providers";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
-type Props = {};
+export function SortableItem({ index }: { index: number }) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: index });
 
-const ImageDisplay = (props: Props) => {
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+      {index}
+    </div>
+  );
+}
+
+const ImageDisplay = () => {
   const { images, updateImages } = useUpload();
 
   useEffect(() => {
@@ -22,21 +40,36 @@ const ImageDisplay = (props: Props) => {
         URL.revokeObjectURL(image.preview),
       );
   }, []);
+
   return (
-    <ScrollArea className="h-full max-h-[calc(100vh-18rem)]  w-full">
-      {/* {images} */}
-      {images.map((image) => (
-        <img src={image.preview} />
-      ))}
-    </ScrollArea>
+    <DndProvider>
+      <ScrollArea className="flex h-full max-h-[calc(100vh-18rem)] w-full   flex-col space-y-2">
+        {/* {images} */}
+        {images.map((image, index) => (
+          //   <AspectRatio
+          //     key={image.preview}
+          //     ratio={16 / 9}
+          //     className="mb-2 cursor-pointer border-2 bg-muted"
+          //   >
+          //     <Image
+          //       src={image.preview}
+          //       alt="Photo by Drew Beamer"
+          //       fill
+          //       className="rounded-md object-cover"
+          //     />
+          //   </AspectRatio>
+          <SortableItem key={image.preview} index={index} />
+        ))}
+      </ScrollArea>
+    </DndProvider>
   );
 };
-const CollageSidebar = (props: Props) => {
+const CollageSidebar = () => {
   // Inside your component
   const { images, updateImages } = useUpload();
 
   const { getRootProps, getInputProps } = useDropzone({
-    maxFiles: 1, // Max number of files to be dropped
+    // maxFiles: 1, // Max number of files to be dropped
 
     onDrop: (acceptedFiles) => {
       updateImages([
@@ -49,6 +82,7 @@ const CollageSidebar = (props: Props) => {
       ]);
     },
   });
+  console.log(images);
 
   return (
     <div className="flex w-72 flex-col space-y-3 border-r px-3 py-6">
