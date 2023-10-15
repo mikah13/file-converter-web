@@ -13,10 +13,11 @@ import { AspectRatio } from "./ui/aspect-ratio";
 import { DndProvider } from "@/lib/dnd-providers";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { v4 as uuidv4 } from "uuid";
 
-export function SortableItem({ index }: { index: number }) {
+export function SortableItem({ image }: { image: FileWithPreview }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: index });
+    useSortable({ id: image.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -25,7 +26,18 @@ export function SortableItem({ index }: { index: number }) {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {index}
+      <AspectRatio
+        key={image.preview}
+        ratio={16 / 9}
+        className="mb-2 cursor-pointer border-2 bg-muted"
+      >
+        <Image
+          src={image.preview}
+          alt="Photo by Drew Beamer"
+          fill
+          className="rounded-md object-cover"
+        />
+      </AspectRatio>
     </div>
   );
 }
@@ -46,19 +58,7 @@ const ImageDisplay = () => {
       <ScrollArea className="flex h-full max-h-[calc(100vh-18rem)] w-full   flex-col space-y-2">
         {/* {images} */}
         {images.map((image, index) => (
-          //   <AspectRatio
-          //     key={image.preview}
-          //     ratio={16 / 9}
-          //     className="mb-2 cursor-pointer border-2 bg-muted"
-          //   >
-          //     <Image
-          //       src={image.preview}
-          //       alt="Photo by Drew Beamer"
-          //       fill
-          //       className="rounded-md object-cover"
-          //     />
-          //   </AspectRatio>
-          <SortableItem key={image.preview} index={index} />
+          <SortableItem key={image.preview} image={image} />
         ))}
       </ScrollArea>
     </DndProvider>
@@ -77,6 +77,7 @@ const CollageSidebar = () => {
         ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
+            id: uuidv4(),
           }),
         ),
       ]);

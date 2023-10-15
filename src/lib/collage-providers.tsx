@@ -1,12 +1,12 @@
 import { ReactNode, createContext, useState, useContext } from "react";
 import { FileWithPath } from "react-dropzone";
 import { MosaicParent } from "react-mosaic-component";
-import { v4 as uuidv4 } from "uuid";
 export type ViewId = "a" | "b" | "c" | "new" | "d";
 
 export const CollageContext = createContext(null);
 export type FileWithPreview = FileWithPath & {
   preview: string;
+  id: string;
 };
 interface UploadContextType {
   images: FileWithPreview[];
