@@ -17,7 +17,7 @@ type Props = {};
 function CollageMosaic({}: Props) {
   const { images, updateImages } = useUpload();
   return (
-    <div>
+    <div className="h-full w-full">
       <Mosaic<ViewId>
         renderTile={(id, path) => (
           <MosaicWindow<ViewId>

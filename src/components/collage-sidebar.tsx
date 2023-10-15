@@ -29,11 +29,11 @@ export function SortableItem({ image }: { image: FileWithPreview }) {
       <AspectRatio
         key={image.preview}
         ratio={16 / 9}
-        className="mb-2 cursor-pointer border-2 bg-muted"
+        className=" cursor-pointer border-2 bg-muted"
       >
         <Image
           src={image.preview}
-          alt="Photo by Drew Beamer"
+          alt={image.name}
           fill
           className="rounded-md object-cover"
         />
@@ -55,12 +55,10 @@ const ImageDisplay = () => {
 
   return (
     <DndProvider>
-      <ScrollArea className="flex h-full max-h-[calc(100vh-18rem)] w-full   flex-col space-y-2">
-        {/* {images} */}
-        {images.map((image, index) => (
-          <SortableItem key={image.preview} image={image} />
-        ))}
-      </ScrollArea>
+      {/* {images} */}
+      {images.map((image, index) => (
+        <SortableItem key={image.preview} image={image} />
+      ))}
     </DndProvider>
   );
 };
@@ -83,10 +81,9 @@ const CollageSidebar = () => {
       ]);
     },
   });
-  console.log(images);
 
   return (
-    <div className="flex w-72 flex-col space-y-3 border-r px-3 py-6">
+    <div className="flex w-full flex-col space-y-3 border-r px-3 py-6">
       <Button
         variant="outline"
         {...getRootProps({
@@ -97,7 +94,7 @@ const CollageSidebar = () => {
         <PlusCircle className="mr-2 h-4 w-4" /> Upload Image
       </Button>
 
-      <div className="flex h-full flex-col">
+      <div className="grid grid-cols-4 ">
         <ImageDisplay />
       </div>
     </div>

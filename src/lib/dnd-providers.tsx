@@ -11,6 +11,7 @@ import {
 } from "@dnd-kit/core";
 import {
   arrayMove,
+  rectSortingStrategy,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -36,7 +37,7 @@ export const DndProvider: React.FC<DndContextProps> = ({ children }) => {
     >
       <SortableContext
         items={images.map((e) => e.id)}
-        strategy={verticalListSortingStrategy}
+        strategy={rectSortingStrategy}
       >
         {children}
       </SortableContext>
@@ -45,20 +46,13 @@ export const DndProvider: React.FC<DndContextProps> = ({ children }) => {
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
-    console.log(active, over);
     if (over && active?.id !== over?.id) {
-      // updateImages((items) => {
-      //   const oldIndex = items.indexOf(active.id);
-      //   const newIndex = items.indexOf(over.id);
-      //   return arrayMove(items, oldIndex, newIndex);
-      // });
+
       const oldIndex = images.findIndex((img) => img.id === active.id);
       const newIndex = images.findIndex((img) => img.id === over.id);
-      console.log(oldIndex, newIndex);
       const [objectToMove] = images.splice(oldIndex, 1);
       let newImages = images.map(e=>e);
       newImages.splice(newIndex, 0, objectToMove);
-      console.log(newImages);
       updateImages(newImages);
     }
   }
