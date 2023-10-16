@@ -3,7 +3,7 @@ import {
   UploadContext,
   useUpload,
 } from "@/lib/collage-providers";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { PlusCircle } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
@@ -14,6 +14,8 @@ import { DndProvider } from "@/lib/dnd-providers";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "sonner";
+import { handleCollage } from "@/lib/utils";
 
 export function SortableItem({ image }: { image: FileWithPreview }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -65,6 +67,7 @@ const ImageDisplay = () => {
 const CollageSidebar = () => {
   // Inside your component
   const { images, updateImages } = useUpload();
+  const [processing, setProceessing] = useState(false);
 
   const { getRootProps, getInputProps } = useDropzone({
     // maxFiles: 1, // Max number of files to be dropped
@@ -81,6 +84,17 @@ const CollageSidebar = () => {
       ]);
     },
   });
+
+  const createCollage = async () => {
+    if (images.length === 0) {
+      toast.error("No file found. Please upload a file...");
+      return;
+    }
+    setProceessing(true);
+
+    let res = await handleCollage(images);
+    console.log(res);
+  };
 
   return (
     <div className="flex w-full flex-col space-y-4 border-r px-6 py-6">
@@ -99,7 +113,9 @@ const CollageSidebar = () => {
       </div>
 
       <div className="flex justify-end">
-        <Button className="w-36">Create collage</Button>
+        <Button className="w-36" onClick={createCollage}>
+          Create collage
+        </Button>
       </div>
     </div>
   );
