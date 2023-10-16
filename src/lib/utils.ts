@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { UploadFile, Mode } from "./types";
 import { FileWithPath } from "react-dropzone";
+import { FileWithPreview } from "./collage-providers";
 
 const API_ENDPOINT = `${process.env.BACKEND_API}`;
 
@@ -179,4 +180,19 @@ export async function handleCompress(uploadFile: UploadFile) {
     },
   );
   return res;
+}
+
+export async function handleCollage(images: FileWithPreview[]) {
+  const formData = new FormData();
+  images.map((e) => formData.append("files", e));
+
+  const response = await fetch(
+    `${API_ENDPOINT}/collage?width=3200&height=1800`,
+    {
+      method: "POST",
+      body: formData,
+    },
+  );
+
+  return response;
 }

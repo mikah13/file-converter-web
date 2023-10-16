@@ -2,11 +2,46 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { ArrowsClockwise, FileArchive } from "@phosphor-icons/react";
+import { ArrowsClockwise, FileArchive, Wall } from "@phosphor-icons/react";
 import { usePathname, redirect, useRouter } from "next/navigation";
 import { Separator } from "./ui/separator";
 type Props = {};
+type LinkType = {
+  name: string;
+  href: string;
+  icon: string;
+};
+const Icon = (props: { name: string; size: number; className: string }) => {
+  const { name, size, className } = props;
+  switch (name) {
+    case "file-archive":
+      return <FileArchive {...props} />;
+    case "arrows-clockwise":
+      return <ArrowsClockwise {...props} />;
+    case "wall":
+      return <Wall {...props} />;
+    default:
+      return null;
+  }
+};
+const SIDEBAR_LINKS: LinkType[] = [
+  {
+    name: "Converter",
+    href: "/converter",
+    icon: "arrows-clockwise",
+  },
+  {
+    name: "Compressor",
+    href: "/compressor",
+    icon: "file-archive",
+  },
 
+  // {
+  //   name: "Collage Maker",
+  //   href: "/collage",
+  //   icon: "wall",
+  // },
+];
 const Sidebar = (props: Props) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -27,24 +62,18 @@ const Sidebar = (props: Props) => {
           >
             <h1 className="text-lg font-semibold tracking-tight">iConvert</h1>
           </Link>
-          <div className="space-y-1">
-            <Button
-              variant={getButtonVariant("converter")}
-              onClick={() => router.push("/converter")}
-              className="w-full justify-start rounded-none"
-            >
-              <ArrowsClockwise size={24} className="mr-1" /> Converter
-            </Button>
-          </div>
-          <div className="space-y-1">
-            <Button
-              variant={getButtonVariant("compressor")}
-              onClick={() => router.push("/compressor")}
-              className="w-full justify-start rounded-none"
-            >
-              <FileArchive size={24} className="mr-1" /> Compressor
-            </Button>
-          </div>
+
+          {SIDEBAR_LINKS.map((link: LinkType, index) => (
+            <div className="space-y-1" key={index}>
+              <Button
+                variant={getButtonVariant(link.href)}
+                onClick={() => router.push(link.href)}
+                className="w-full justify-start rounded-none"
+              >
+                <Icon name={link.icon} size={24} className="mr-1" /> {link.name}
+              </Button>
+            </div>
+          ))}
         </div>
       </div>
 
