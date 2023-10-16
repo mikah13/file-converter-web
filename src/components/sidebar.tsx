@@ -36,11 +36,11 @@ const SIDEBAR_LINKS: LinkType[] = [
     icon: "file-archive",
   },
 
-  {
-    name: "Collage Maker",
-    href: "/collage",
-    icon: "wall",
-  },
+  // {
+  //   name: "Collage Maker",
+  //   href: "/collage",
+  //   icon: "wall",
+  // },
 ];
 const Sidebar = (props: Props) => {
   const pathname = usePathname();

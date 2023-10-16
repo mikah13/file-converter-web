@@ -186,10 +186,13 @@ export async function handleCollage(images: FileWithPreview[]) {
   const formData = new FormData();
   images.map((e) => formData.append("files", e));
 
-  const response = await fetch("/collage&width=3200&height=1800", {
-    method: "POST",
-    body: formData,
-  });
+  const response = await fetch(
+    `${API_ENDPOINT}/collage?width=3200&height=1800`,
+    {
+      method: "POST",
+      body: formData,
+    },
+  );
 
   return response;
 }
