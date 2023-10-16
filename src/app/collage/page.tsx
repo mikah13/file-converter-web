@@ -16,6 +16,7 @@ const Collage = (props: Props) => {
       <div className="flex h-full w-full grow flex-row">
         <div className="flex w-full">
           <CollageSidebar />
+          
         </div>
         {/* <div className="m-0 h-full max-h-[650px] w-full max-w-[1200px] grow">
           <CollageMosaic />

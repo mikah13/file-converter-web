@@ -35,7 +35,7 @@ export function SortableItem({ image }: { image: FileWithPreview }) {
           src={image.preview}
           alt={image.name}
           fill
-          className="rounded-md object-cover"
+          className="rounded-md border-2 border-gray-50 object-cover"
         />
       </AspectRatio>
     </div>
@@ -83,7 +83,7 @@ const CollageSidebar = () => {
   });
 
   return (
-    <div className="flex w-full flex-col space-y-3 border-r px-6 py-6">
+    <div className="flex w-full flex-col space-y-4 border-r px-6 py-6">
       <Button
         variant="outline"
         {...getRootProps({
@@ -94,8 +94,12 @@ const CollageSidebar = () => {
         <PlusCircle className="mr-2 h-4 w-4" /> Upload Image
       </Button>
 
-      <div className="grid h-[400px] grid-cols-4 gap-6 overflow-x-scroll">
+      <div className="grid h-[400px] grid-cols-4 gap-6 overflow-x-scroll border p-4">
         <ImageDisplay />
+      </div>
+
+      <div className="flex justify-end">
+        <Button className="w-36">Create collage</Button>
       </div>
     </div>
   );
